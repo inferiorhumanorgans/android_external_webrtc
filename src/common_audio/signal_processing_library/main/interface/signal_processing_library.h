@@ -26,8 +26,9 @@
 #endif
 
 #ifdef WEBRTC_ANDROID
-#define WEBRTC_SPL_INLINE_CALLS
-#define SPL_NO_DOUBLE_IMPLEMENTATIONS
+// Should be conditional on older/newer than ARMv7
+//#define WEBRTC_SPL_INLINE_CALLS
+//#define SPL_NO_DOUBLE_IMPLEMENTATIONS
 #endif
 
 // Macros specific for the fixed point implementation
@@ -65,10 +66,11 @@
       ((val) << (8 * ((index) & 0x1)))
 #endif
 
-#ifndef WEBRTC_ANDROID
+// Should be conditional on older/newer than ARMv7
+//#ifndef WEBRTC_ANDROID
 #define WEBRTC_SPL_MUL(a, b)                                    \
   ((WebRtc_Word32) ((WebRtc_Word32)(a) * (WebRtc_Word32)(b)))
-#endif
+//#endif
 
 #define WEBRTC_SPL_UMUL(a, b)                                           \
   ((WebRtc_UWord32) ((WebRtc_UWord32)(a) * (WebRtc_UWord32)(b)))
@@ -116,7 +118,7 @@
 #ifdef ARM_WINM
 #define WEBRTC_SPL_MUL_16_16(a, b)                      \
   _SmulLo_SW_SL((WebRtc_Word16)(a), (WebRtc_Word16)(b))
-#elif !defined (WEBRTC_ANDROID)
+#else
 #define WEBRTC_SPL_MUL_16_16(a, b)                                      \
     ((WebRtc_Word32) (((WebRtc_Word16)(a)) * ((WebRtc_Word16)(b))))
 #endif
